@@ -6,7 +6,7 @@ let min = 1,
 
 
 //UI Elements
-const game = document.getElementById('game'),
+const game = document.querySelector('#game'),
       minNum = document.querySelector('.min-num'),
       maxNum = document.querySelector('.max-num'),
       guessBtn = document.querySelector('#guess-btn'),guessInput = document.querySelector('#guess-input'),
@@ -36,19 +36,21 @@ guessBtn.addEventListener('click', function(){
 if (guess === winningNum){
    gameOver(true, `${winningNum} is correct, YOU WIN!`);
 } else{
-    //Worng number
+    //Wrong number      //Fixed brace error with if/else
     guessesLEft -= 1;
+
   if(guessesLEft === 0){
     //Game over - lost
     gameOver(false,`Game Over, you lost. The correct number was ${winningNum}`)
   } else{
     //Game continues
 
-      //Change border color
-      guessInput.style.borderColor = 'red';
+    //Change border color
+    guessInput.style.borderColor = 'red';
 
     //Clear Input
     guessInput.value = '';
+
 
     //Tell User
     setMessage(`${guess} is not correct, ${guessesLEft} guesses left`, 'red');
@@ -64,8 +66,11 @@ function gameOver(won, msg){
    //Disable Input
    guessInput.disabled = true;
    //Change border color
-   guessInput.style.borderColor = 'green';
+   guessInput.style.borderColor = color;
+  //Fixed changing value from green to color
+
    message.style.color = color;
+
    //Set message
    setMessage(msg);
 
@@ -76,7 +81,12 @@ function gameOver(won, msg){
 
 //Get Random Winning Num
 function getWinningNum(min, max){
-  Math.floor(Math.random() * (max-min+1)+min);
+  let winNum = Math.floor(Math.random() * (max-min+1)+min);
+
+  //Fixed that winning num might not be returned from function
+  console.log(winNum);
+  return winNum;
+  
 }
 
 //Set message
